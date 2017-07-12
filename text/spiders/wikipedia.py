@@ -58,7 +58,7 @@ class WikipediaSpider(CrawlSpider):
             # Add to the file
             text += paragraph.lower() + '\n'
 
-        filename = 'wiki_data.txt'
+        filename = 'wikipedia.txt'
         f = open(filename, 'a')
         f.write(text)
         f.close()

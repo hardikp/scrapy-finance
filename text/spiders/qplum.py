@@ -45,7 +45,7 @@ class QplumSpider(CrawlSpider):
         for c in '();.,[]"\'-:/%$+@?':
             paragraph = paragraph.replace(c, ' {} '.format(c))
 
-        filename = 'qplum_data.txt'
+        filename = 'qplum.txt'
         f = open(filename, 'a')
         f.write(paragraph.lower() + '\n')
         f.close()

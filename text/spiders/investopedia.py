@@ -64,7 +64,7 @@ class InvestopediaSpider(CrawlSpider):
             text += paragraph.lower() + '\n'
 
         # Save the title and the text both
-        filename = 'investopedia_data.txt'
+        filename = 'investopedia.txt'
         f = open(filename, 'a')
         f.write(text)
         f.close()
