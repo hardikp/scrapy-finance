@@ -8,11 +8,12 @@ scrapy spiders to crawl the financial data pertinent to train word vectors.
 
 ### How to use this
 ```
-$ scrapy crawl qplum
+(py3) hardik@shire:~/scrapy-finance$ scrapy crawl qplum
 ```
 
 ### Notes
 * The text data is written in the lower case at the moment in all spiders.
+* This is not checked with python2.
 
 ### Contributing
 Please feel free to submit a pull request to add relevant spiders.
