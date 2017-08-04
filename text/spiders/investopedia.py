@@ -37,9 +37,8 @@ class InvestopediaSpider(CrawlSpider):
         # Replace / with a space - creates issues with writing to file
         title = title.replace('/', ' ')
 
-        # Get the first div with id Content
-        content = response.css('div#Content')[0]
-        content = content.css('div.content-box')
+        # Get the first div with class content
+        content = response.css('div.content')[0]
 
         text = ''
         for child in content.xpath('//p'):
