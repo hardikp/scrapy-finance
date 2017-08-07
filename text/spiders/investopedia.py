@@ -1,4 +1,5 @@
 from string import ascii_lowercase
+import os
 
 import scrapy
 from scrapy.spiders import CrawlSpider
@@ -56,15 +57,23 @@ class InvestopediaSpider(CrawlSpider):
             paragraph = paragraph.replace('U.S.', 'US')
 
             # Some more replacements to improve the default tokenization
-            for c in '();.,[]"\'-:/%$+@?':
-                paragraph = paragraph.replace(c, ' {} '.format(c))
+            # for c in '();.,[]"\'-:/%$+@?':
+            #     paragraph = paragraph.replace(c, ' {} '.format(c))
 
             # Add to the file
-            text += paragraph.lower() + '\n'
+            text += paragraph + '\n'
+
+        # Create the directory
+        dirname = 'investopedia'
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+        elif not os.path.isdir(dirname):
+            os.remove(dirname)
+            os.mkdir(dirname)
 
         # Save the title and the text both
-        filename = 'investopedia.txt'
-        f = open(filename, 'a')
+        filename = '{}/{}'.format(dirname, title)
+        f = open(filename, 'w')
         f.write(text)
         f.close()
 
