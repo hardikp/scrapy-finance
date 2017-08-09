@@ -54,9 +54,6 @@ class BloombergSpider(CrawlSpider):
             # Replace '&amp;' with '&'
             paragraph = paragraph.replace('&amp;', '&')
 
-            # Replace 'U.S.' with 'US':
-            paragraph = paragraph.replace('U.S.', 'US')
-
             text += paragraph + '\n\n'
 
         # Create the directory

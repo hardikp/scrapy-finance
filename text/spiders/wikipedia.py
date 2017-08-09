@@ -1,3 +1,5 @@
+import os
+
 import scrapy
 from scrapy.spiders import CrawlSpider
 from w3lib.html import remove_tags, remove_tags_with_content
@@ -48,18 +50,20 @@ class WikipediaSpider(CrawlSpider):
             # Replace '&amp;' with '&'
             paragraph = paragraph.replace('&amp;', '&')
 
-            # Replace 'U.S.' with 'US':
-            paragraph = paragraph.replace('U.S.', 'US')
-
-            # Some more replacements to improve the default tokenization
-            for c in '();.,[]"\'-:/%$+@?':
-                paragraph = paragraph.replace(c, ' {} '.format(c))
-
             # Add to the file
-            text += paragraph.lower() + '\n'
+            text += paragraph + '\n'
 
-        filename = 'wikipedia.txt'
-        f = open(filename, 'a')
+        # Create the directory
+        dirname = 'wikipedia'
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+        elif not os.path.isdir(dirname):
+            os.remove(dirname)
+            os.mkdir(dirname)
+
+        # Save the title and the text both
+        filename = '{}/{}'.format(dirname, title)
+        f = open(filename, 'w')
         f.write(text)
         f.close()
 

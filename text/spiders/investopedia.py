@@ -53,13 +53,6 @@ class InvestopediaSpider(CrawlSpider):
             # Replace '&amp;' with '&'
             paragraph = paragraph.replace('&amp;', '&')
 
-            # Replace 'U.S.' with 'US':
-            paragraph = paragraph.replace('U.S.', 'US')
-
-            # Some more replacements to improve the default tokenization
-            # for c in '();.,[]"\'-:/%$+@?':
-            #     paragraph = paragraph.replace(c, ' {} '.format(c))
-
             # Add to the file
             text += paragraph + '\n'
 
