@@ -57,20 +57,28 @@ class BloombergSpider(CrawlSpider):
             text += paragraph + '\n\n'
 
         # Create the directory
-        dirname = 'bloomberg'
-        if not os.path.exists(dirname):
-            os.mkdir(dirname)
-        elif not os.path.isdir(dirname):
-            os.remove(dirname)
-            os.mkdir(dirname)
+        tokens = response.url.split('/')
+        dirname = self.create_dir(tokens[-2])
 
         # Save the title and the text both
-        filename = '{}/{}'.format(dirname, title)
+        filename = '{}/{}'.format(dirname, tokens[-1])
         f = open(filename, 'w')
         f.write(text)
         f.close()
 
         return self.parse_links(response)
+
+    def create_dir(self, day):
+        # Create the directory
+        dirname = 'bloomberg'
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+
+        dirname = dirname + '/' + day
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+
+        return dirname
 
     def parse_links(self, response):
 
