@@ -91,5 +91,12 @@ class BloombergSpider(CrawlSpider):
             if link.lower().endswith('.png') or link.lower().endswith('.jpg'):
                 continue
 
+            tokens = link.split('/')
+            if len(tokens) < 2:
+                continue
+            fname = 'bloomberg/' + tokens[-2] + '/' + tokens[-1]
+            if os.path.exists(fname):
+                continue
+
             next_page = response.urljoin(link)
             yield scrapy.Request(next_page, callback=self.parse)
