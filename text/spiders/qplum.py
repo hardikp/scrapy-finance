@@ -1,4 +1,5 @@
 import json
+import os
 import re
 
 from scrapy.spiders import CrawlSpider
@@ -18,6 +19,12 @@ class QplumSpider(CrawlSpider):
             return
 
         data = json.loads(response.text)
+
+        title = data['title']
+        # Replace / with a space - creates issues with writing to file
+        title = title.replace('/', ' ')
+
+        description = data['description']
         data = data['content']
 
         # Remove <script>, <sup>, <math> tags with the content
@@ -40,12 +47,25 @@ class QplumSpider(CrawlSpider):
         paragraph = paragraph.replace('U.S.', 'US')
 
         # Some more replacements to improve the default tokenization
-        for c in ['\n', '\r', '\t']:
-            paragraph = paragraph.replace(c, ' ')
-        for c in '();.,[]"\'-:/%$+@?':
-            paragraph = paragraph.replace(c, ' {} '.format(c))
+        paragraph = paragraph.replace('\r', '')
+        paragraph = paragraph.replace('\t', '')
+        # for c in ['\n', '\r', '\t']:
+        #     paragraph = paragraph.replace(c, ' ')
+        # for c in '();.,[]"\'-:/%$+@?':
+        #     paragraph = paragraph.replace(c, ' {} '.format(c))
 
-        filename = 'qplum.txt'
-        f = open(filename, 'a')
-        f.write(paragraph.lower() + '\n')
+        text = title + '\n\n' + description + '\n\n' + paragraph
+
+        # Create the directory
+        dirname = 'qplum'
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+        elif not os.path.isdir(dirname):
+            os.remove(dirname)
+            os.mkdir(dirname)
+
+        # Save the title and the text both
+        filename = '{}/{}'.format(dirname, title)
+        f = open(filename, 'w')
+        f.write(text)
         f.close()
