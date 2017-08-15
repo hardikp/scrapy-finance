@@ -49,10 +49,6 @@ class QplumSpider(CrawlSpider):
         # Some more replacements to improve the default tokenization
         paragraph = paragraph.replace('\r', '')
         paragraph = paragraph.replace('\t', '')
-        # for c in ['\n', '\r', '\t']:
-        #     paragraph = paragraph.replace(c, ' ')
-        # for c in '();.,[]"\'-:/%$+@?':
-        #     paragraph = paragraph.replace(c, ' {} '.format(c))
 
         text = title + '\n\n' + description + '\n\n' + paragraph
 
