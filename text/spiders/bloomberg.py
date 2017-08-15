@@ -70,7 +70,7 @@ class BloombergSpider(CrawlSpider):
 
     def create_dir(self, day):
         # Create the directory
-        dirname = 'bloomberg'
+        dirname = 'data/bloomberg'
         if not os.path.exists(dirname):
             os.mkdir(dirname)
 
@@ -94,7 +94,7 @@ class BloombergSpider(CrawlSpider):
             tokens = link.split('/')
             if len(tokens) < 2:
                 continue
-            fname = 'bloomberg/' + tokens[-2] + '/' + tokens[-1]
+            fname = 'data/bloomberg/' + tokens[-2] + '/' + tokens[-1]
             if os.path.exists(fname):
                 continue
 

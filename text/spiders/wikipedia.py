@@ -36,7 +36,7 @@ class WikipediaSpider(CrawlSpider):
         content = response.css('div#mw-content-text')
 
         # Just extract all the '<p></p>' children from this
-        text = ''
+        text = title + '\n\n'
         for child in content.xpath('//p'):
 
             # Get the text from this child <p></p> tag
@@ -54,15 +54,16 @@ class WikipediaSpider(CrawlSpider):
             text += paragraph + '\n'
 
         # Create the directory
-        dirname = 'wikipedia'
+        dirname = 'data/wikipedia'
         if not os.path.exists(dirname):
             os.mkdir(dirname)
         elif not os.path.isdir(dirname):
             os.remove(dirname)
             os.mkdir(dirname)
 
-        # Save the title and the text both
-        filename = '{}/{}'.format(dirname, title)
+        # Save the text
+        name = response.url.split('/')[-1]
+        filename = '{}/{}'.format(dirname, name)
         f = open(filename, 'w')
         f.write(text)
         f.close()

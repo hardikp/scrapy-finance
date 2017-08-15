@@ -53,7 +53,7 @@ class QplumSpider(CrawlSpider):
         text = title + '\n\n' + description + '\n\n' + paragraph
 
         # Create the directory
-        dirname = 'qplum'
+        dirname = 'data/qplum'
         if not os.path.exists(dirname):
             os.mkdir(dirname)
         elif not os.path.isdir(dirname):
