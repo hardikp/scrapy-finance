@@ -1,4 +1,6 @@
 # scrapy-finance
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hardikp/scrapy-finance/blob/master/LICENSE)
+
 scrapy spiders to crawl the financial data pertinent to train word vectors.
 
 ## List of sources
