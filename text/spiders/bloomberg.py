@@ -72,11 +72,11 @@ class BloombergSpider(CrawlSpider):
         # Create the directory
         dirname = 'data/bloomberg'
         if not os.path.exists(dirname):
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
 
         dirname = dirname + '/' + day
         if not os.path.exists(dirname):
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
 
         return dirname
 

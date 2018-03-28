@@ -8,7 +8,12 @@ from w3lib.html import remove_tags, remove_tags_with_content
 
 class InvestopediaSpider(CrawlSpider):
     name = 'investopedia'
-    start_urls = ['http://www.investopedia.com/terms/%s/' % s for s in ascii_lowercase + '1']
+    start_urls = []
+
+    url_fmt = 'https://www.investopedia.com/terms/%s/?page=%d'
+    for i in ascii_lowercase:
+        for j in range(30):
+            start_urls.append(url_fmt % (i, j))
 
     def parse(self, response):
         """
@@ -39,7 +44,11 @@ class InvestopediaSpider(CrawlSpider):
         title = title.replace('/', ' ')
 
         # Get the first div with class content
-        content = response.css('div.content')[0]
+        content = response.css('div.content')
+        if isinstance(content, list) and len(content) > 0:
+            content = content[0]
+        else:
+            content = response.css('div.roth__content')[0]
 
         text = title + '\n\n'
         for child in content.xpath('//p'):
@@ -59,10 +68,10 @@ class InvestopediaSpider(CrawlSpider):
         # Create the directory
         dirname = 'data/investopedia'
         if not os.path.exists(dirname):
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
         elif not os.path.isdir(dirname):
             os.remove(dirname)
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
 
         # Save the text
         name = response.url.split('/')[-1]

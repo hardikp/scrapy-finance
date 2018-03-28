@@ -56,10 +56,10 @@ class WikipediaSpider(CrawlSpider):
         # Create the directory
         dirname = 'data/wikipedia'
         if not os.path.exists(dirname):
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
         elif not os.path.isdir(dirname):
             os.remove(dirname)
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
 
         # Save the text
         name = response.url.split('/')[-1]

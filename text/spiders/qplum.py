@@ -8,7 +8,7 @@ from w3lib.html import remove_tags, remove_tags_with_content
 
 class QplumSpider(CrawlSpider):
     name = 'qplum'
-    start_urls = ['https://www.qplum.co/articles/{}.json'.format(i) for i in range(300)]
+    start_urls = ['https://www.qplum.co/articles/{}.json'.format(i) for i in range(400)]
 
     def parse(self, response):
         """
@@ -55,10 +55,10 @@ class QplumSpider(CrawlSpider):
         # Create the directory
         dirname = 'data/qplum'
         if not os.path.exists(dirname):
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
         elif not os.path.isdir(dirname):
             os.remove(dirname)
-            os.mkdir(dirname)
+            os.makedirs(dirname, exist_ok=True)
 
         # Save the title and the text both
         filename = '{}/{}'.format(dirname, title)
