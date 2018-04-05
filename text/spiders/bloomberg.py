@@ -29,7 +29,7 @@ class BloombergSpider(CrawlSpider):
     def _parse_response(self, response):
         """
         Parses various topics
-        e.g. https://www.bloomberg.com/news/articles/2017-08-06/asian-stocks-to-gain-on-u-s-data-yen-holds-drop-markets-wrap
+        e.g. https://www.bloomberg.com/news/articles/2017-08-06/asian-stocks-to-gain-on-u-s-data-yen-holds-drop-markets-wrap  # noqa: E501
         """
         if response.status == 404:
             print(response.headers)

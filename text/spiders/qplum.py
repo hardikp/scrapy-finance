@@ -8,7 +8,7 @@ from w3lib.html import remove_tags, remove_tags_with_content
 
 class QplumSpider(CrawlSpider):
     name = 'qplum'
-    start_urls = ['https://www.qplum.co/articles/{}.json'.format(i) for i in range(400)]
+    start_urls = ['https://www.qplum.co/articles/{}.json'.format(i) for i in range(500)]
 
     def parse(self, response):
         """

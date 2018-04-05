@@ -11,7 +11,8 @@ class InvestopediaSpider(CrawlSpider):
     start_urls = []
 
     url_fmt = 'https://www.investopedia.com/terms/%s/?page=%d'
-    for i in ascii_lowercase:
+    for i in '1' + ascii_lowercase:
+        # Investopedia has multiple pages for each term.
         for j in range(30):
             start_urls.append(url_fmt % (i, j))
 
